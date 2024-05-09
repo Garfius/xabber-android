@@ -41,7 +41,7 @@ public class ChatMarkersElements {
         }
 
         @Override
-        public CharSequence toXML() {
+        public CharSequence toXML(String enclosingNamespace) {
             XmlStringBuilder xml = new XmlStringBuilder(this);
             xml.closeEmptyElement();
             return xml;
@@ -69,7 +69,7 @@ public class ChatMarkersElements {
         }
 
         @Override
-        public final XmlStringBuilder toXML() {
+        public final XmlStringBuilder toXML(String enclosingNamespace) {
             XmlStringBuilder xml = new XmlStringBuilder(this);
             xml.attribute("id", id);
             xml.closeEmptyElement();

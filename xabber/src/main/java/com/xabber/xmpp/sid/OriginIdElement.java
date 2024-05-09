@@ -22,7 +22,7 @@ public class OriginIdElement implements ExtensionElement {
     }
 
     @Override
-    public CharSequence toXML() {
+    public CharSequence toXML(String enclosingNamespace) {
         return new XmlStringBuilder(OriginIdElement.this)
                 .attribute(UniqStanzaHelper.ATTRIBUTE_ID, id)
                 .closeEmptyElement();

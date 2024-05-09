@@ -150,7 +150,7 @@ public class ServerInfoActivity extends ManagedActivity {
             boolean sm = connection.isSmAvailable();
             boolean rosterVersioning = Roster.getInstanceFor(connection).isRosterVersioningSupported();
             boolean carbons = org.jivesoftware.smackx.carbons.CarbonManager.getInstanceFor(connection).isSupportedByServer();
-            boolean mam = MamManager.getInstanceFor(connection).isSupportedByServer();
+            boolean mam = MamManager.getInstanceFor(connection).isSupported();
             boolean csi = ClientStateIndicationManager.isSupported(connection);
             boolean push = PushManager.getInstance().isSupport(connection);
             boolean fileUpload = HttpFileUploadManager.getInstance().isFileUploadSupported(accountItem.getAccount());

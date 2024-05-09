@@ -232,7 +232,7 @@ public class RegularChat extends AbstractChat {
 
             String uid = UUID.randomUUID().toString();
             RealmList<ForwardId> forwardIds = parseForwardedMessage(true, packet, uid);
-            String originalStanza = packet.toXML().toString();
+            String originalStanza = packet.toXML(null).toString();
             String originalFrom = packet.getFrom().toString();
 
             // forward comment (to support previous forwarded xep)
@@ -287,7 +287,7 @@ public class RegularChat extends AbstractChat {
 
         String uid = UUID.randomUUID().toString();
         RealmList<ForwardId> forwardIds = parseForwardedMessage(ui, message, uid);
-        String originalStanza = message.toXML().toString();
+        String originalStanza = message.toXML(null).toString();
         String originalFrom = "";
         if (fromJid != null) originalFrom = fromJid.toString();
         boolean fromMuc = message.getType().equals(Type.groupchat);

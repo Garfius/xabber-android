@@ -44,7 +44,8 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Stanza;
-import org.jivesoftware.smack.packet.XMPPError;
+//import org.jivesoftware.smack.packet.XMPPError;
+import org.jivesoftware.smack.packet.StanzaError;
 import org.jivesoftware.smackx.muc.HostedRoom;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.MultiUserChatException;
@@ -403,11 +404,11 @@ public class MUCManager implements OnLoadListener, OnPacketListener {
                             roomChat.setState(RoomState.error);
                             addAuthorizationError(account, room);
 
-                            XMPPError xmppError = e.getXMPPError();
+                            StanzaError xmppError = e.getStanzaError();
 
-                            if (xmppError != null && xmppError.getCondition() == XMPPError.Condition.conflict) {
+                            if (xmppError != null && xmppError.getCondition() == StanzaError.Condition.conflict) {
                                 Application.getInstance().onError(R.string.NICK_ALREADY_USED);
-                            } else if (xmppError != null && xmppError.getCondition() == XMPPError.Condition.not_authorized) {
+                            } else if (xmppError != null && xmppError.getCondition() == StanzaError.Condition.not_authorized) {
                                 Application.getInstance().onError(R.string.AUTHENTICATION_FAILED);
                             } else {
                                 Application.getInstance().onError(R.string.NOT_CONNECTED);

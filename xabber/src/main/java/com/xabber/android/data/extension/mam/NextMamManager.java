@@ -471,7 +471,7 @@ public class NextMamManager implements OnRosterReceivedListener, OnPacketListene
         MamManager mamManager = MamManager.getInstanceFor(accountItem.getConnection());
         boolean isSupported;
         try {
-            isSupported = mamManager.isSupportedByServer();
+            isSupported = mamManager.isSupported();
         } catch (SmackException.NoResponseException | XMPPException.XMPPErrorException
                 | InterruptedException | SmackException.NotConnectedException | ClassCastException e) {
             LogManager.exception(this, e);
@@ -735,7 +735,7 @@ public class NextMamManager implements OnRosterReceivedListener, OnPacketListene
             messageItem.setAttachments(attachments);
 
         // forwarded
-        messageItem.setOriginalStanza(message.toXML().toString());
+        messageItem.setOriginalStanza(message.toXML(null).toString());
         messageItem.setOriginalFrom(message.getFrom().toString());
 
         // groupchat

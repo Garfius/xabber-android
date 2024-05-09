@@ -28,7 +28,7 @@ public class DiscoveryInfoCache extends RealmObject {
 
     public DiscoveryInfoCache(@NonNull String nodeVer, @NonNull DiscoverInfo discoveryInfo) {
         this.nodeVer = nodeVer;
-        this.discoveryInfoXml = discoveryInfo.toXML().toString();
+        this.discoveryInfoXml = discoveryInfo.toXML(null).toString();
     }
 
     public DiscoverInfo getDiscoveryInfo() {

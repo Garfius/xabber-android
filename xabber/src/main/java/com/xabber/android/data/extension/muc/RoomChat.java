@@ -295,7 +295,7 @@ public class RoomChat extends AbstractChat {
 
                 String uid = UUID.randomUUID().toString();
                 RealmList<ForwardId> forwardIds = parseForwardedMessage(true, stanza, uid);
-                String originalStanza = stanza.toXML().toString();
+                String originalStanza = stanza.toXML(null).toString();
 
                 // create message with file-attachments
                 if (attachments.size() > 0)
@@ -385,7 +385,7 @@ public class RoomChat extends AbstractChat {
 
         String uid = UUID.randomUUID().toString();
         RealmList<ForwardId> forwardIds = parseForwardedMessage(ui, message, uid);
-        String originalStanza = message.toXML().toString();
+        String originalStanza = message.toXML(null).toString();
         String originalFrom = message.getFrom().toString();
         boolean fromMUC = message.getType().equals(Type.groupchat);
 

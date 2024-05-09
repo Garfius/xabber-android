@@ -53,7 +53,7 @@ import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smackx.carbons.packet.CarbonExtension;
 import org.jivesoftware.smackx.chatstates.ChatState;
 import org.jivesoftware.smackx.chatstates.packet.ChatStateExtension;
-import org.jivesoftware.smackx.chatstates.provider.ChatStateExtensionProvider;
+//import org.jivesoftware.smackx.chatstates.provider.ChatStateExtensionProvider;
 import org.jivesoftware.smackx.disco.ServiceDiscoveryManager;
 import org.jxmpp.jid.BareJid;
 import org.jxmpp.jid.Jid;

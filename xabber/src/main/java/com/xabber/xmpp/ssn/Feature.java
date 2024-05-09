@@ -227,12 +227,12 @@ public class Feature extends PacketExtension {
         if (field == null)
             return null;
 
-        List<String> values = field.getValues();
+        List<CharSequence> values = field.getValues();
         if (!values.isEmpty()) {
             return null;
         }
 
-        return values.get(0);
+        return values.get(0).toString();
     }
 
     public LoggingValue getLoggingValue() {

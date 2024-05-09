@@ -116,12 +116,12 @@ class ConnectionListener implements org.jivesoftware.smack.ConnectionListener {
         });
     }
 
-    @Override
+    //@Override
     public void reconnectionSuccessful() {
         LogManager.i(getLogTag(), "reconnectionSuccessful");
     }
 
-    @Override
+    //@Override
     public void reconnectingIn(final int seconds) {
         LogManager.i(getLogTag(), "reconnectionSuccessful");
         if (connectionItem.getState() != ConnectionState.waiting && !connectionItem.getConnection().isAuthenticated()
@@ -130,7 +130,7 @@ class ConnectionListener implements org.jivesoftware.smack.ConnectionListener {
         }
     }
 
-    @Override
+    //@Override
     public void reconnectionFailed(final Exception e) {
         LogManager.i(getLogTag(), "reconnectionFailed " + e + " " + e.getMessage());
         connectionItem.updateState(ConnectionState.offline);

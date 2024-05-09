@@ -25,7 +25,7 @@ public class ForwardComment implements ExtensionElement {
     }
 
     @Override
-    public CharSequence toXML() {
+    public CharSequence toXML(String enclosingNamespace) {
         XmlStringBuilder xml = new XmlStringBuilder(this);
         xml.rightAngleBracket();
         xml.append(comment);

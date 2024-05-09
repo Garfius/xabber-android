@@ -26,7 +26,7 @@ public class ExtendedFormField extends FormField {
     }
 
     @Override
-    public XmlStringBuilder toXML() {
+    public XmlStringBuilder toXML(String enclosingNamespace) {
         XmlStringBuilder buf = new XmlStringBuilder(this);
         // Add attributes
         buf.optAttribute("label", getLabel());
@@ -37,16 +37,16 @@ public class ExtendedFormField extends FormField {
         buf.optElement("desc", getDescription());
         buf.condEmptyElement(isRequired(), "required");
         // Loop through all the values and append them to the string buffer
-        for (String value : getValues()) {
-            buf.element("value", value);
+        for (CharSequence value : getValues()) {
+            buf.element("value", value.toString());
         }
         // Loop through all the values and append them to the string buffer
         for (Option option : getOptions()) {
-            buf.append(option.toXML());
+            buf.append(option.toXML(null));
         }
 
         if (media != null)
-            buf.append(media.toXML());
+            buf.append(media.toXML(null));
 
         buf.closeElement(this);
         return buf;
@@ -96,7 +96,7 @@ public class ExtendedFormField extends FormField {
         }
 
         @Override
-        public CharSequence toXML() {
+        public CharSequence toXML(String enclosingNamespace) {
             XmlStringBuilder xml = new XmlStringBuilder(this);
             // Add attribute
             xml.optAttribute("type", getType());
@@ -149,7 +149,7 @@ public class ExtendedFormField extends FormField {
         }
 
         @Override
-        public CharSequence toXML() {
+        public CharSequence toXML(String enclosingNamespace) {
             XmlStringBuilder xml = new XmlStringBuilder(this);
             // Add attribute
             xml.optAttribute("height", getHeight());
@@ -158,7 +158,7 @@ public class ExtendedFormField extends FormField {
 
             // Add element
             if (uri != null)
-                xml.append(uri.toXML());
+                xml.append(uri.toXML(null));
 
             xml.closeElement(this);
             return xml;

@@ -389,7 +389,7 @@ public class VCardManager implements OnLoadListener, OnPacketListener,
 
                 boolean isSuccess = true;
 
-                xmppConnection.setPacketReplyTimeout(120000);
+                xmppConnection.setReplyTimeout(120000);
 
                 vCardSaveRequests.add(account);
                 try {
@@ -413,7 +413,7 @@ public class VCardManager implements OnLoadListener, OnPacketListener,
                 }
                 vCardSaveRequests.remove(account);
 
-                xmppConnection.setPacketReplyTimeout(ConnectionManager.PACKET_REPLY_TIMEOUT);
+                xmppConnection.setReplyTimeout(ConnectionManager.PACKET_REPLY_TIMEOUT);
 
                 final boolean finalIsSuccess = isSuccess;
                 Application.getInstance().runOnUiThread(new Runnable() {

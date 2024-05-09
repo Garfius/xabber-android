@@ -34,7 +34,7 @@ public abstract class PacketExtension implements Container,
     }
 
     @Override
-    public String toXML() {
+    public String toXML(String enclosingNamespace) {
         return SerializerUtils.toXml(this);
     }
 

@@ -23,7 +23,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.minidns.dnsname.DnsName;
 /**
  * Created by valery.miller on 12.05.17.
  */
@@ -41,7 +41,8 @@ public class ExtDNSJavaResolver extends DNSResolver implements SmackInitializer 
     }
 
     @Override
-    protected List<SRVRecord> lookupSRVRecords0(String name, List<HostAddress> failedAddresses, ConnectionConfiguration.DnssecMode dnssecMode) {
+    protected List<SRVRecord> lookupSRVRecords0(DnsName name, List<HostAddress> failedAddresses, ConnectionConfiguration.DnssecMode dnssecMode) {
+        //protected abstract List<SRVRecord> lookupSRVRecords0(DnsName name, List<HostAddress> failedAddresses, DnssecMode dnssecMode);
         List<SRVRecord> res = new ArrayList<SRVRecord>();
         org.xbill.DNS.ResolverConfig.refresh();
 
@@ -49,7 +50,7 @@ public class ExtDNSJavaResolver extends DNSResolver implements SmackInitializer 
         String [] servers = getDNSServersListForOreo();
 
         try {
-            lookup = new ExtLookup(name, Type.SRV);
+            lookup = new ExtLookup(name.toString(), Type.SRV);
             if (servers != null && servers.length > 0)
                 lookup.setResolver(new ExtendedResolver(servers));
             else lookup.setResolver(new ExtendedResolver());
@@ -70,13 +71,13 @@ public class ExtDNSJavaResolver extends DNSResolver implements SmackInitializer 
                 int port = srvRecord.getPort();
                 int priority = srvRecord.getPriority();
                 int weight = srvRecord.getWeight();
-
-                List<InetAddress> hostAddresses = lookupHostAddress0(host, failedAddresses, dnssecMode);
+                DnsName aaa = DnsName.from(host);
+                List<InetAddress> hostAddresses = lookupHostAddress0(aaa, failedAddresses, dnssecMode);
                 if (hostAddresses == null) {
                     continue;
                 }
 
-                SRVRecord r = new SRVRecord(host, port, priority, weight, hostAddresses);
+                SRVRecord r = new SRVRecord(aaa, port, priority, weight, hostAddresses);
                 res.add(r);
             }
         }

@@ -32,7 +32,7 @@ import org.jivesoftware.smack.XMPPConnectionRegistry;
 import org.jivesoftware.smack.packet.ExtensionElement;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Stanza;
-import org.jivesoftware.smack.packet.XMPPError;
+import org.jivesoftware.smack.packet.StanzaError;
 import org.jivesoftware.smackx.receipts.DeliveryReceipt;
 import org.jivesoftware.smackx.receipts.DeliveryReceiptManager;
 import org.jivesoftware.smackx.receipts.DeliveryReceiptRequest;
@@ -127,7 +127,7 @@ public class ReceiptManager implements OnPacketListener, ReceiptReceivedListener
                 .equalTo(MessageItem.Fields.STANZA_ID, AbstractChat.getStanzaId(message)).findFirst();
         if (first != null) {
             first.setError(true);
-            XMPPError error = message.getError();
+            StanzaError error = message.getError();
             if (error != null) {
                 String errorStr = error.toString();
                 String descr = error.getDescriptiveText(null);

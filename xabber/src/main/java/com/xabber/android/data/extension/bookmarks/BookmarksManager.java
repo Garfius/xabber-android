@@ -177,7 +177,7 @@ public class BookmarksManager {
         AccountItem accountItem = AccountManager.getInstance().getAccount(accountJid);
         if (accountItem != null) {
             BookmarkManager bookmarkManager = BookmarkManager.getBookmarkManager(accountItem.getConnection());
-            bookmarkManager.cleanCache();
+            //bookmarkManager.cleanCache();
         }
     }
 

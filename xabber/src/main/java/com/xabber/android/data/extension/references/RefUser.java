@@ -42,7 +42,7 @@ public class RefUser implements ExtensionElement {
     }
 
     @Override
-    public CharSequence toXML() {
+    public CharSequence toXML(String enclosingNamespace) {
         XmlStringBuilder xml = new XmlStringBuilder(this);
         xml.attribute(ATTR_ID, id);
         xml.rightAngleBracket();

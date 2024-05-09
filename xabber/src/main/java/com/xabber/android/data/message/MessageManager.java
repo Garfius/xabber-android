@@ -790,7 +790,7 @@ public class MessageManager implements OnLoadListener, OnPacketListener, OnDisco
             String text = body;
             String uid = UUID.randomUUID().toString();
             RealmList<ForwardId> forwardIds = finalChat.parseForwardedMessage(true, message, uid);
-            String originalStanza = message.toXML().toString();
+            String originalStanza = message.toXML(null).toString();
             String originalFrom = message.getFrom().toString();
 
             // forward comment (to support previous forwarded xep)

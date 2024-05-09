@@ -21,7 +21,7 @@ public class Forward extends ReferenceElement {
     @Override
     public void appendToXML(XmlStringBuilder xml) {
         for (Forwarded forward : forwarded) {
-            xml.append(forward.toXML());
+            xml.append(forward.toXML(null));
         }
     }
 

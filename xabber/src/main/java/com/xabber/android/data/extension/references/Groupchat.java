@@ -18,7 +18,7 @@ public class Groupchat extends ReferenceElement {
 
     @Override
     public void appendToXML(XmlStringBuilder xml) {
-        if (user != null) xml.append(user.toXML());
+        if (user != null) xml.append(user.toXML(null));
     }
 
     public RefUser getUser() {

@@ -7,7 +7,7 @@ android {
     buildToolsVersion '29.0.1'
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 644
         versionName '2.6.6.644'
@@ -122,7 +122,7 @@ if (getGradle().getStartParameter().getTaskRequests().toString().contains("Store
 }
 
 ext {
-    smackVerstion = 'ffb99cc'
+    smackVerstion = '4.3.3'
 }
 
 dependencies {
@@ -130,16 +130,18 @@ dependencies {
     implementation project(path: 'emojicon', configuration: 'default')
 
     // smack
-    implementation "com.github.str4tocaster.smack:smack-android-extensions:$smackVerstion"
-    implementation "com.github.str4tocaster.smack:smack-experimental:$smackVerstion"
-    implementation "com.github.str4tocaster.smack:smack-tcp:$smackVerstion"
-    implementation "com.github.str4tocaster.smack:smack-resolver-dnsjava:$smackVerstion"
-
+    implementation "org.igniterealtime.smack:smack-android-extensions:$smackVerstion"
+    implementation "org.igniterealtime.smack:smack-experimental:$smackVerstion"
+    implementation "org.igniterealtime.smack:smack-tcp:$smackVerstion"
+    implementation "org.igniterealtime.smack:smack-resolver-dnsjava:$smackVerstion"
+    implementation "de.measite.minidns:minidns-core:0.2.4"
     // android support
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.browser:browser:1.0.0'
     implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
     // firebase
     storeImplementation "com.google.firebase:firebase-messaging:17.3.4"
@@ -194,9 +196,6 @@ dependencies {
     implementation 'com.melnykov:floatingactionbutton:1.3.0'
 
     // crashlytics
-    storeImplementation("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
-        transitive = true
-    }
 
     // leak canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'

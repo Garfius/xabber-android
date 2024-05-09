@@ -558,7 +558,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
         }
         for (HostAddress hostAddress : hostAddresses) {
             Iterator<InetAddress> inetAddresses = null;
-            String host = hostAddress.getFQDN();
+            String host = hostAddress.getFQDN().toString();
             int port = hostAddress.getPort();
             if (proxyInfo == null) {
                 inetAddresses = hostAddress.getInetAddresses().iterator();
@@ -583,17 +583,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                         }
                     }
 
-                    // support legacy SSL
-                    if (ConnectionConfiguration.SecurityMode.legacy == config.getSecurityMode()) {
-                        try {
-                            proceedTLSReceived();
-                        } catch (Exception e) {
-                            String errorMessage = "Could not enable SSL encryption while connecting to "
-                                    + host + ":" + port + ".";
-                            throw ConnectionException.from(failedAddresses);
-                        }
-                    }
-                    //
+
 
                     LOGGER.finer("Established TCP connection to " + inetAddressAndPort);
                     // We found a host to connect to, return here
@@ -647,12 +637,12 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
 
             // If debugging is enabled, we should start the thread that will listen for
             // all packets and then log them.
-            if (config.isDebuggerEnabled()) {
+            /*if (config.isDebuggerEnabled()) {
                 addAsyncStanzaListener(debugger.getReaderListener(), null);
                 if (debugger.getWriterListener() != null) {
                     addPacketSendingListener(debugger.getWriterListener(), null);
                 }
-            }
+            }*/
         }
         // Start the packet writer. This will open an XMPP stream to the server
         packetWriter.init();
@@ -1132,7 +1122,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                                     break;
                                 case Failed.ELEMENT:
                                     Failed failed = ParseStreamManagement.failed(parser);
-                                    FailedNonzaException xmppException = new FailedNonzaException(failed, failed.getXMPPErrorCondition());
+                                    FailedNonzaException xmppException = new FailedNonzaException(failed, failed.getStanzaErrorCondition());
                                     // If only XEP-198 would specify different failure elements for the SM
                                     // enable and SM resume failure case. But this is not the case, so we
                                     // need to determine if this is a 'Failed' response for either 'Enable'
@@ -1426,9 +1416,9 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                     }
                     maybeAddToUnacknowledgedStanzas(packet);
 
-                    CharSequence elementXml = element.toXML();
+                    CharSequence elementXml = element.toXML(null);
                     if (elementXml instanceof XmlStringBuilder) {
-                        ((XmlStringBuilder) elementXml).write(writer);
+                        ((XmlStringBuilder) elementXml).write(writer,null);
                     }
                     else {
                         writer.write(elementXml.toString());
@@ -1450,7 +1440,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                                 Stanza stanza = (Stanza) packet;
                                 maybeAddToUnacknowledgedStanzas(stanza);
                             }
-                            writer.write(packet.toXML().toString());
+                            writer.write(packet.toXML(null).toString());
                         }
                         writer.flush();
                     }
@@ -1518,7 +1508,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                 // If the unacknowledgedStanza queue is nearly full, request an new ack
                 // from the server in order to drain it
                 if (unacknowledgedStanzas.size() == 0.8 * XMPPTCPConnection.QUEUE_SIZE) {
-                    writer.write(AckRequest.INSTANCE.toXML().toString());
+                    writer.write(AckRequest.INSTANCE.toXML(null).toString());
                     writer.flush();
                 }
                 try {
@@ -1880,7 +1870,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                             try {
                                 listener.processStanza(ackedStanza);
                             }
-                            catch (InterruptedException | NotConnectedException e) {
+                            catch (InterruptedException | NotConnectedException | SmackException.NotLoggedInException e) {
                                 LOGGER.log(Level.FINER, "Received exception", e);
                             }
                         }
@@ -1893,7 +1883,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                             try {
                                 listener.processStanza(ackedStanza);
                             }
-                            catch (InterruptedException | NotConnectedException e) {
+                            catch (InterruptedException | NotConnectedException | SmackException.NotLoggedInException e) {
                                 LOGGER.log(Level.FINER, "Received exception", e);
                             }
                         }
